@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     reply_llm_model: str = "llama-3.1-8b-instant"
     huggingfacehub_api_token: str = ""
     hitl_confidence_threshold: float = 0.75
+    frontend_origin: str = "http://localhost:3000"
 
     database_url: str = "postgresql://user:pass@localhost:5432/mailmind"
 

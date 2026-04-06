@@ -1,9 +1,39 @@
 from fastapi import FastAPI
+from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
 
+from agent.graph import build_email_agent, set_email_agent
+from api.hitl import router as hitl_router
+from api.rules import router as rules_router
+from api.stream import router as stream_router
 from api.webhook import router as webhook_router
+from config import get_settings
+from models import create_db_and_tables
 
 app = FastAPI(title="MailMind Backend")
 app.include_router(webhook_router)
+app.include_router(rules_router)
+app.include_router(hitl_router)
+app.include_router(stream_router)
+
+
+@app.on_event("startup")
+async def startup_event() -> None:
+    create_db_and_tables()
+
+    settings = get_settings()
+    app.state.checkpointer_cm = AsyncPostgresSaver.from_conn_string(
+        settings.database_url
+    )
+    app.state.checkpointer = await app.state.checkpointer_cm.__aenter__()
+    await app.state.checkpointer.setup()
+    set_email_agent(build_email_agent(app.state.checkpointer))
+
+
+@app.on_event("shutdown")
+async def shutdown_event() -> None:
+    cm = getattr(app.state, "checkpointer_cm", None)
+    if cm is not None:
+        await cm.__aexit__(None, None, None)
 
 
 @app.get("/health")

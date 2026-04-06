@@ -2,11 +2,13 @@ fastapi
 uvicorn
 langchain
 langgraph
+langgraph-checkpoint-postgres
 langchain-groq
 resend
 svix
 SQLAlchemy
 psycopg2-binary
+psycopg[binary]
 pydantic
 pydantic-settings
 requests

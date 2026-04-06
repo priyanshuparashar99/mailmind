@@ -9,6 +9,8 @@ dependencies = [
     "langchain>=1.2.15",
     "langchain-groq>=1.1.2",
     "langgraph>=1.1.6",
+    "langgraph-checkpoint-postgres",
+    "psycopg[binary]",
     "psycopg2-binary>=2.9.11",
     "pydantic>=2.12.5",
     "pydantic-settings>=2.11.0",

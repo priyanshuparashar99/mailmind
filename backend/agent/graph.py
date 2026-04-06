@@ -53,4 +53,17 @@ graph.add_conditional_edges(
 graph.add_edge("act", "log_result")
 graph.add_edge("log_result", END)
 
-email_agent = graph.compile(checkpointer=MemorySaver())
+_email_agent = graph.compile(checkpointer=MemorySaver())
+
+
+def build_email_agent(checkpointer):
+    return graph.compile(checkpointer=checkpointer)
+
+
+def set_email_agent(agent) -> None:
+    global _email_agent
+    _email_agent = agent
+
+
+def get_email_agent():
+    return _email_agent

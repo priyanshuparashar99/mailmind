@@ -3,7 +3,7 @@ import json
 from fastapi import APIRouter, HTTPException, Request, status
 from svix.webhooks import Webhook, WebhookVerificationError
 
-from agent.graph import email_agent
+from agent.graph import get_email_agent
 from agent.state import build_initial_state
 from config import get_settings
 
@@ -52,7 +52,7 @@ async def resend_webhook(request: Request) -> dict[str, str]:
         subject=str(data.get("subject", "")),
     )
 
-    await email_agent.ainvoke(
+    await get_email_agent().ainvoke(
         initial_state,
         config={"configurable": {"thread_id": email_id}},
     )

@@ -3,6 +3,7 @@ from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
 
 from agent.graph import build_email_agent, set_email_agent
 from api.hitl import router as hitl_router
+from api.kb import router as kb_router
 from api.rules import router as rules_router
 from api.stream import router as stream_router
 from api.webhook import router as webhook_router
@@ -14,6 +15,7 @@ app.include_router(webhook_router)
 app.include_router(rules_router)
 app.include_router(hitl_router)
 app.include_router(stream_router)
+app.include_router(kb_router)
 
 
 @app.on_event("startup")

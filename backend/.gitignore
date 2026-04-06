@@ -12,3 +12,6 @@ wheels/
 # Environment variables
 .env
 .env.local
+
+# Local knowledge base indices
+kb_indices/

@@ -4,6 +4,8 @@ langchain
 langgraph
 langgraph-checkpoint-postgres
 langchain-groq
+langchain-community
+langchain-huggingface
 resend
 svix
 SQLAlchemy
@@ -11,4 +13,6 @@ psycopg2-binary
 psycopg[binary]
 pydantic
 pydantic-settings
+pypdf
+python-multipart
 requests
